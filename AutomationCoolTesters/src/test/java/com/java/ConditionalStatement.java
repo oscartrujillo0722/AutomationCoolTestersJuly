@@ -12,6 +12,37 @@ public class ConditionalStatement {
 				System.out.println("vas bien");
 			
 			}
+		
+		// SWITCH CASE
+		
+		int temperatura = 20;
+		
+		switch (temperatura)
+		{
+		case 5:
+		
+		System.out.println("Clima muy frio");
+		break;
+		
+		case 10:
+			
+			System.out.println("Clima frio");
+			break;
+			
+       case 20:
+			System.out.println("Clima templado");
+			break;
+       case 30:
+			
+			System.out.println("Clima muy caliente");
+			break;
+			
+			default: 
+				System.out.println("Clima no reconocible");
+				break;
+			
+		
+		}
 		}
 		
 
