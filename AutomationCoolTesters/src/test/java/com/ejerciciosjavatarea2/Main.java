@@ -23,7 +23,9 @@ public class Main {
 		Biciesto biciesto = new Biciesto(2000);
 		System.out.println(biciesto.isLeapYear());
 //////////////////Decimales//////////////////
-		Decimales decimales = new Decimales(3.123,3.123);
+		Decimales decimales = new Decimales(3.113456,3.123789);
 		System.out.println(decimales.areEqualByThreeDecimalPlaces());
+////////////////Kylobytes/////////////////////////////
+		new printMegaBytesAndKiloBytes(5000);
 	}
 }

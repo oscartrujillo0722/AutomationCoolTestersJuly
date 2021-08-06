@@ -19,12 +19,10 @@ public class GatoJugador {
 			} else {
 				jugando = false;
 			}
+		} else if (temperatura >= 25 && temperatura <= 35) {
+			jugando = true;
 		} else {
-			if (temperatura >= 25 && temperatura <= 35) {
-				jugando = true;
-			} else {
-				jugando = false;
-			}
+			jugando = false;
 		}
 
 		return jugando;

@@ -1,6 +1,5 @@
 package com.ejerciciosjavatarea2;
 
-import java.text.DecimalFormat;
 
 public class Decimales {
 	double n1, n2;
@@ -12,10 +11,12 @@ public class Decimales {
 	}
 
 	public boolean areEqualByThreeDecimalPlaces() {
-		DecimalFormat formato1 = new DecimalFormat("#.00");
-		System.out.println(formato1.format(n1));
-		System.out.println(formato1.format(n2));
-		if (formato1.format(n1) == formato1.format(n2)) {
+		
+		n1= n1*1000;
+		n2=n2*1000;
+		
+		
+		if ((int)n1 == (int)n2) {
 			return true;
 		} else {
 			return false;
