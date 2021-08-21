@@ -31,7 +31,7 @@ public class  TC003_Admin_AddNewUser_POM {
 
 		// Step 4
 		admin.clickAdmin();
-		newUserName= admin.creatingValidUserName();
+		newUserName= admin.userNameCreator();
 		
 		//Step 5 
 		admin.clickAdd();
@@ -74,7 +74,7 @@ public class  TC003_Admin_AddNewUser_POM {
 	  //Test data
 	  this.username= "Admin";
 	  this.password = "admin123";
-	  this.employeeName = "Cecil Bonaparte";
+	  this.employeeName = "Alice Duval";
   }
 
   @AfterTest

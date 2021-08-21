@@ -28,6 +28,7 @@ public class LoginPage extends Base {
 			type(txtPassword,password);
 			click(btnLogin);
 			implicitlywait(15);
+			takeScreenshot("Login_Ornage");
 			
 		}
 		/*

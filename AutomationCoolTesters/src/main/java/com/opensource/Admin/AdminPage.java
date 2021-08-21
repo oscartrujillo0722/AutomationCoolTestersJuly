@@ -30,17 +30,20 @@ public class AdminPage  extends Base{
 	public void validatelogged() {
 	reporter("Validate Logged Successfully");
 	waitforElementPresent(imgHeaderOrange);
+	takeScreenshot("Validate_Login");
 	}
 	public void clickAdmin() {
 		reporter("Click Admin Module");
 		click(lnkAdmin);
 		implicitlywait();
+		takeScreenshot("Click_Admin");
 	}
 	public void searchUser(String username) {
 		reporter("Searching..."+username);
 		type(txtSearchUserName, username);
 		click(btnSearch);
 		implicitlywait();
+		takeScreenshot("Search_User");
 		
 	}
 	public void validateUsernameTable(String username) {
@@ -48,6 +51,7 @@ public class AdminPage  extends Base{
 		SoftAssert validTable = softassertEquals(getText(tblUsername),username);
 		validTable.assertAll();
 		//assertEquals(getText(tblUsername),username);
+		takeScreenshot("Validate_User");
 	}
 	public void validateRecordNoFound() {
 		reporter("Validating the record was not found");
@@ -87,7 +91,13 @@ public class AdminPage  extends Base{
 		String tableValueGotten = tablevalue();
 		System.out.println(tableValueGotten);
 	}
-			
+	public String userNameCreator(){
+		reporter("Create a valid User Name");
+		String newUserName = creatingValidUserName();
+		return newUserName;
+		
+	}
+				
 		
 	}
 		
