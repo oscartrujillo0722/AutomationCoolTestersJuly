@@ -16,30 +16,30 @@ public class TC002_Admin_SearchEmployee_NotExist_POM {
 	Base base;
 	LoginPage login;
 	AdminPage admin;
-	String username, password, usertosearch;
+	String username, password, usertosearch, newFolderPath;
 
 	@Test
 	public void TC002_Admin_SearchEmployee_NotExist_Script() {
 		       // Step 1
-				base.launchBrowser(GlobalVariables.QA_URL);
+				base.launchBrowser(GlobalVariables.QA_URL, newFolderPath);
 
 				// Step 2
-				login.LoginOrange(username, password);
+				login.LoginOrange(username, password, newFolderPath);
 
 				// Step 3
-				admin.validatelogged();
+				admin.validatelogged(newFolderPath);
 
 				// Step 4
-				admin.clickAdmin();
+				admin.clickAdmin(newFolderPath);
 				
 				//Step 5 and 6
-				admin.searchUser(usertosearch);
+				admin.searchUser(usertosearch, newFolderPath);
 				
 				//Step 7 
-				admin.validateRecordNoFound();
+				admin.validateRecordNoFound(newFolderPath);
 				
 				//Step 8
-				login.logout();
+				login.logout(newFolderPath);
 				
 				// Step 9
 				login.closeBrowser();
@@ -55,9 +55,12 @@ public class TC002_Admin_SearchEmployee_NotExist_POM {
 
 				// Test Data
 
-				this.username = "Admin";
-				this.password = "admin123";
+				this.username = base.getJSONValue( "username");
+				this.password = base.getJSONValue( "password");
 				this.usertosearch = "XYZ";
+				
+				//Generate evidence folder
+				this.newFolderPath = base.generaFolders(this.getClass().getSimpleName());
 	}
 
 	@AfterTest

@@ -27,45 +27,48 @@ public class AdminPage  extends Base{
 	By btnSave = By.xpath("//input[@name='btnSave']");
 	
 	
-	public void validatelogged() {
+	public void validatelogged(String newFolderPath) {
 	reporter("Validate Logged Successfully");
 	waitforElementPresent(imgHeaderOrange);
-	takeScreenshot("Validate_Login");
+	takeScreenshot("Validate_Login", newFolderPath);
 	}
-	public void clickAdmin() {
+	public void clickAdmin(String newFolderPath) {
 		reporter("Click Admin Module");
 		click(lnkAdmin);
 		implicitlywait();
-		takeScreenshot("Click_Admin");
+		takeScreenshot("Click_Admin", newFolderPath);
 	}
-	public void searchUser(String username) {
+	public void searchUser(String username, String newFolderPath) {
 		reporter("Searching..."+username);
 		type(txtSearchUserName, username);
 		click(btnSearch);
 		implicitlywait();
-		takeScreenshot("Search_User");
+		takeScreenshot("Search_User", newFolderPath);
 		
 	}
-	public void validateUsernameTable(String username) {
+	public void validateUsernameTable(String username, String newFolderPath) {
 		reporter("Verify this value: "+username+" in admin user table");
 		SoftAssert validTable = softassertEquals(getText(tblUsername),username);
 		validTable.assertAll();
 		//assertEquals(getText(tblUsername),username);
-		takeScreenshot("Validate_User");
+		takeScreenshot("Validate_User", newFolderPath);
 	}
-	public void validateRecordNoFound() {
+	public void validateRecordNoFound(String newFolderPath) {
 		reporter("Validating the record was not found");
 		assertionEqualsByLocator(txtNoRecordsFound, "No Records Found");
+		takeScreenshot("Record not found",newFolderPath);
 	}
-	public void clickAdd(){
+	public void clickAdd(String newFolderPath){
 		reporter("click Add button");
 		click(btnAdd);
+		takeScreenshot("Click Add",newFolderPath);
 		
 		
 	}
-	public void typeEmplyeeName(String employeeName) {
+	public void typeEmplyeeName(String employeeName, String newFolderPath) {
 		reporter("Input a valid employee name");
 		type(txtEmployeeName, employeeName);
+		takeScreenshot("Type_Employee", newFolderPath);
 	}
 	
 	public String selectValidUserName() {
@@ -74,18 +77,22 @@ public class AdminPage  extends Base{
 		return newUserName;
 				
 	}
-	public void typeValidUserName(String newUserName) {
+	public void typeValidUserName(String newUserName, String newFolderPath) {
 		reporter ("entering the new User Name");
 		type(txtUserName,newUserName);
+		takeScreenshot("Type_UserName", newFolderPath);
+		
 	}
-	public void selectAndConfirmPassword(String password) {
+	public void selectAndConfirmPassword(String password, String newFolderPath) {
 		reporter("Select, type and confirm password");
 		type(txtAddPassword,password);
 		type(txtConfirmPassword,password);
+		takeScreenshot("Type_And_Confirm_Password", newFolderPath);
 	}
-	public void clickSave() {
+	public void clickSave(String newFolderPath) {
 		reporter("Click on save button");
 		click(btnSave);
+		takeScreenshot("Click Save", newFolderPath);
 	}public void getTableValue(){
 		reporter("get a random table value");
 		String tableValueGotten = tablevalue();

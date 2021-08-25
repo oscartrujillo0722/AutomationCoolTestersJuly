@@ -15,31 +15,31 @@ public class TC001_Admin_SearchEmployee_POM {
 	Base base;
 	LoginPage login;
 	AdminPage admin;
-	String username, password;
+	String username, password, newFolderPath;
 
 	@Test
 	public void TC001_Admin_SearchEmployee_POM_Script() {
 
 		// Step 1
-		base.launchBrowser(GlobalVariables.QA_URL);
+		base.launchBrowser(GlobalVariables.QA_URL, newFolderPath);
 
 		// Step 2
-		login.LoginOrange(username, password);
+		login.LoginOrange(username, password, newFolderPath);
 
 		// Step 3
-		admin.validatelogged();
+		admin.validatelogged(newFolderPath);
 
 		// Step 4
-		admin.clickAdmin();
+		admin.clickAdmin(newFolderPath);
 
 		// Step 5
-		admin.searchUser(username);
+		admin.searchUser(username, newFolderPath);
 
 		// Step 6
-		admin.validateUsernameTable(username);
+		admin.validateUsernameTable(username, newFolderPath);
 		
 		// Step 7
-		login.logout();
+		login.logout(newFolderPath);
 		
 		// Step 8
 		login.closeBrowser();
@@ -56,12 +56,19 @@ public class TC001_Admin_SearchEmployee_POM {
 
 		// Test Data JSONFILE
 
-		//this.username = base.getJSONValue(this.getClass().getSimpleName(), "username");
-		//this.password = base.getJSONValue(this.getClass().getSimpleName(), "password");
+//		this.username = base.getJSONValue(this.getClass().getSimpleName(), "username");
+//		this.password = base.getJSONValue(this.getClass().getSimpleName(), "password");
+		
+		this.username = base.getJSONValue( "username");
+		this.password = base.getJSONValue( "password");
 		
 		//Test Data EXCELFILE
-		this.username = base.getCellData(this.getClass().getSimpleName(), 1, 0);
-		this.password = base.getCellData(this.getClass().getSimpleName(), 1, 1);
+//		this.username = base.getCellData(this.getClass().getSimpleName(), 1, 0);
+//		this.password = base.getCellData(this.getClass().getSimpleName(), 1, 1);
+		
+		//Generate evidence folder
+		this.newFolderPath = base.generaFolders(this.getClass().getSimpleName());
+		
 	}
 
 	@AfterTest

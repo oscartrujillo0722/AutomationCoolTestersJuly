@@ -17,45 +17,45 @@ public class  TC003_Admin_AddNewUser_POM {
 	Base base;
 	LoginPage login;
 	AdminPage admin;
-	String username, password, employeeName, newUserName;
+	String username, password, employeeName, newUserName, newFolderPath;
   @Test
   public void TC003_Admin_AddNewUser_POM_script() {
 	// Step 1
-		base.launchBrowser(GlobalVariables.QA_URL);
+		base.launchBrowser(GlobalVariables.QA_URL, newFolderPath);
 
 		// Step 2
-		login.LoginOrange(username, password);
+		login.LoginOrange(username, password, newFolderPath);
 
 		// Step 3
-		admin.validatelogged();
+		admin.validatelogged(newFolderPath);
 
 		// Step 4
-		admin.clickAdmin();
+		admin.clickAdmin(newFolderPath);
 		newUserName= admin.userNameCreator();
 		
 		//Step 5 
-		admin.clickAdd();
+		admin.clickAdd(newFolderPath);
 		
 		//Step 6
-		admin.typeEmplyeeName(employeeName);
+		admin.typeEmplyeeName(employeeName, newFolderPath);
 		
 		//Step 7
-		admin.typeValidUserName(newUserName);
+		admin.typeValidUserName(newUserName, newFolderPath);
 		
 		//Step 8
-		admin.selectAndConfirmPassword(password);
+		admin.selectAndConfirmPassword(password, newFolderPath);
 		
 		//Step 9
-		admin.clickSave();
+		admin.clickSave(newFolderPath);
 		
 		//Step 10 and 11
-		admin.searchUser(newUserName);
+		admin.searchUser(newUserName, newFolderPath);
 		
 		//Step 12
-		admin.validateUsernameTable(newUserName);
+		admin.validateUsernameTable(newUserName, newFolderPath);
 		
 		//Step 13
-		login.logout();
+		login.logout(newFolderPath);
 		
 		//Step 14
 		login.closeBrowser();
@@ -72,9 +72,12 @@ public class  TC003_Admin_AddNewUser_POM {
 	  admin = new AdminPage(driver);
 	  
 	  //Test data
-	  this.username= "Admin";
-	  this.password = "admin123";
+	  this.username = base.getJSONValue( "username");
+	  this.password = base.getJSONValue( "password");
 	  this.employeeName = "Alice Duval";
+	  
+	//Generate evidence folder
+		this.newFolderPath = base.generaFolders(this.getClass().getSimpleName());
   }
 
   @AfterTest

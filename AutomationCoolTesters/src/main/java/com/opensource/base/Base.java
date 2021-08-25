@@ -122,12 +122,12 @@ public class Base {
 	 * Launch Browser
 	 */
 
-	public void launchBrowser(String url) {
+	public void launchBrowser(String url, String newFolderPath) {
 		reporter(GlobalVariables.LAUNCHING_MESSAGE + url);
 		driver.get(url);
 		driver.manage().window().maximize();
 		implicitlywait();
-		takeScreenshot("Launch_Browser");
+		takeScreenshot("Launch_Browser", newFolderPath);
 
 	}
 
@@ -301,6 +301,23 @@ public class Base {
 	return null;
 	}
 	}
+	
+	public String getJSONValue(String jsonKey) {
+	try {
+
+	 // JSON Data
+	InputStream inputStream = new FileInputStream(GlobalVariables.PATH_JSON_DATA + "UserAndPassword.json");
+	JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
+
+	 // Get Data
+	String jsonValue = (String) jsonObject.getJSONObject("UserAndPassword").get(jsonKey);
+	return jsonValue;
+
+	 } catch (FileNotFoundException e) {
+	Assert.fail("JSON file is not found");
+	return null;
+	}
+	}
 	/*
 	* Get Value from Excel
 	* @author Ricardo Avalos
@@ -342,10 +359,37 @@ public class Base {
 	System.out.println(e.getMessage());
 	return null;
 	}
+	}
+	
+	public String takeScreenshot(String fileName, String path){
+	try {
+	String pathFileName= path + "/" +  fileName + ".png";
+	Screenshot screenshot = new AShot().takeScreenshot(driver);
+	ImageIO.write(screenshot.getImage(), "PNG", new File(pathFileName));
+	return pathFileName;
+	} catch (Exception e) {
+	System.out.println(e.getMessage());
+	return null;
+	}
 
 	 }
 	
 	//Para la actividad de screenshots - generar folders
-	//File theDir = new File("/path/directory");if (!theDir.exists()){    theDir.mkdirs();}
+//	public void generaFolders() {
+//	//File theDir = new File("/path/directory");
+//		File theDir = new File("/path/directory");
+//	if (!theDir.exists()){
+//		theDir.mkdirs();}
+//	}
+	
+	public String generaFolders(String folderName) {
+		//File theDir = new File("/path/directory");
+			File theDir = new File(GlobalVariables.PATH_SCREENSHOTS + folderName);
+		if (!theDir.exists()){
+			theDir.mkdirs();}
+		 String newFolderPath = GlobalVariables.PATH_SCREENSHOTS + folderName;
+		 return newFolderPath;
+		
+		}
 
 }

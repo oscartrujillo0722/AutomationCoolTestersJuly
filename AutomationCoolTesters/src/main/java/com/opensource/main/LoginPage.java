@@ -22,23 +22,24 @@ public class LoginPage extends Base {
 		 * @author oscar.trujillo
 		 * @date 08142021
 		 */
-		public void LoginOrange(String username, String password) {
+		public void LoginOrange(String username, String password, String newFolderPath) {
 			reporter("Enter Username and Password");
 			type(txtUsername,username);
 			type(txtPassword,password);
 			click(btnLogin);
 			implicitlywait(15);
-			takeScreenshot("Login_Ornage");
+			takeScreenshot("Login_Ornage", newFolderPath);
 			
 		}
 		/*
 		 * Logout
 		 */
-		public void logout() {
+		public void logout(String newFolderPath) {
 			reporter("Logout Orange HLM portal...");
 			click(lnkWelcome);
 			waitforElementPresent(lnkLogout);
 			click(lnkLogout);
+			takeScreenshot("Login out", newFolderPath);
 			
 		}
 			

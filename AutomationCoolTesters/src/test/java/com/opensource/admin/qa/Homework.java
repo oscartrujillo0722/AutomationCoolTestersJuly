@@ -13,42 +13,41 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 
-public class Homework  {
+public class Homework {
 	WebDriver driver;
 	Base base;
 	LoginPage login;
 	AdminPage admin;
-	String username, password, tableValue;
-  @Test
-  public void homework_table_value() {
-	// Step 1
-		base.launchBrowser(GlobalVariables.QA_URL);
+	String username, password, tableValue, newFolderPath;
+
+	@Test
+	public void homework_table_value() {
+		// Step 1
+		base.launchBrowser(GlobalVariables.QA_URL, newFolderPath);
 
 		// Step 2
-		login.LoginOrange(username, password);
+		login.LoginOrange(username, password, newFolderPath);
 
 		// Step 3
-		admin.validatelogged();
+		admin.validatelogged(newFolderPath);
 
 		// Step 4
-		admin.clickAdmin();
-		
-		//Step 5
+		admin.clickAdmin(newFolderPath);
+
+		// Step 5
 		admin.getTableValue();
-		
-		//Step 6
-		login.logout();
-		
-		//Step 7 
+
+		// Step 6
+		login.logout(newFolderPath);
+
+		// Step 7
 		login.closeBrowser();
-	
-		
-	  
-	  
-  }
-  @BeforeTest
-  public void beforeTest() {
-	// Setup data
+
+	}
+
+	@BeforeTest
+	public void beforeTest() {
+		// Setup data
 		base = new Base(driver);
 		driver = base.chromedriver();
 		login = new LoginPage(driver);
@@ -58,11 +57,14 @@ public class Homework  {
 
 		this.username = "Admin";
 		this.password = "admin123";
-	  
-  }
 
-  @AfterTest
-  public void afterTest() {
-  }
+		// Generate evidence folder
+		this.newFolderPath = base.generaFolders(this.getClass().getSimpleName());
+
+	}
+
+	@AfterTest
+	public void afterTest() {
+	}
 
 }
