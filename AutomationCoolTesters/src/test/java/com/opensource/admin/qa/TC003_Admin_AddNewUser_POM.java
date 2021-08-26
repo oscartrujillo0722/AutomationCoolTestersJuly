@@ -74,7 +74,7 @@ public class  TC003_Admin_AddNewUser_POM {
 	  //Test data
 	  this.username = base.getJSONValue( "username");
 	  this.password = base.getJSONValue( "password");
-	  this.employeeName = "Alice Duval";
+	  this.employeeName = "Cecil Bonaparte";
 	  
 	//Generate evidence folder
 		this.newFolderPath = base.generaFolders(this.getClass().getSimpleName());

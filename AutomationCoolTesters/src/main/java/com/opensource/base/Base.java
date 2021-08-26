@@ -131,6 +131,14 @@ public class Base {
 
 	}
 
+	public void launchBrowser(String url) {
+		reporter(GlobalVariables.LAUNCHING_MESSAGE + url);
+		driver.get(url);
+		driver.manage().window().maximize();
+		implicitlywait();
+
+	}
+
 	/*
 	 * Type
 	 */
@@ -223,50 +231,44 @@ public class Base {
 	 * Get table value
 	 */
 
-	
 	public String tablevalue() {
-	reporter("select a random value from the table");
-	int tr, td, max;
-	WebElement table = driver.findElement(By.xpath("//table[@id='resultTable']"));
-	List <WebElement> rows = table.findElements(By.tagName("tr"));
-	System.out.println(rows.size());
-	max = rows.size();
-	tr = (int)(Math.random()*max+1);
-	td = 2;
-	String xpath = "//tbody/tr[" + tr + "]/td[" + td + "]";
-	return driver.findElement(By.xpath(xpath)).getText();
+		reporter("select a random value from the table");
+		int tr, td, max;
+		WebElement table = driver.findElement(By.xpath("//table[@id='resultTable']"));
+		List<WebElement> rows = table.findElements(By.tagName("tr"));
+		System.out.println(rows.size());
+		max = rows.size();
+		tr = (int) (Math.random() * max + 1);
+		td = 2;
+		String xpath = "//tbody/tr[" + tr + "]/td[" + td + "]";
+		return driver.findElement(By.xpath(xpath)).getText();
 	}
-	
+
 	/*
 	 * Select User Name
 	 */
-	
+
 	public String creatingValidUserName() {
-		String newUserName = "OskiTrujillo";
+		int i = (int) (Math.random() * 1000 + 1);
+		String newUserName = "OskiTrujilloM"+i;
 		String nrf = "No Records Found";
 		boolean exist = true;
-		int i = 0;
 		do {
-			    	    
-		type(By.xpath("//input[@id='searchSystemUser_userName']"), newUserName);
-		click(By.xpath("//input[@id='searchBtn']"));
-		implicitlywait();
-		String notexist_message = driver.findElement(By.xpath("//tbody/tr[1]/td[1]")).getText();
-		if(notexist_message.equals(nrf)) {
-			exist =false;}
-		else {
-			i++;
-			newUserName = "OskiTrujillo"+i;
-			driver.findElement(By.xpath("//input[@id='searchSystemUser_userName']")).clear();
-		}	
-		}
-		while(exist == true);
+
+			type(By.xpath("//input[@id='searchSystemUser_userName']"), newUserName);
+			click(By.xpath("//input[@id='searchBtn']"));
+			implicitlywait();
+			String notexist_message = driver.findElement(By.xpath("//tbody/tr[1]/td[1]")).getText();
+			if (notexist_message.equals(nrf)) {
+				exist = false;
+			} else {
+				i++;
+				newUserName = "OskiTrujilloM" + i;
+				driver.findElement(By.xpath("//input[@id='searchSystemUser_userName']")).clear();
+			}
+		} while (exist == true);
 		return newUserName;
 	}
-	
-	
-		
-	
 
 	/*
 	 * Close Browser
@@ -276,120 +278,126 @@ public class Base {
 
 		driver.close();
 	}
-	
+
 	/**
-	* Get Data from JSON file (Directly)
-	*
-	* @author Ricardo Avalos
-	* @param jsonFile, jsonKey
-	* @return jsonValue
-	* @throws FileNotFoundException
-	*/
+	 * Get Data from JSON file (Directly)
+	 *
+	 * @author Ricardo Avalos
+	 * @param jsonFile, jsonKey
+	 * @return jsonValue
+	 * @throws FileNotFoundException
+	 */
 	public String getJSONValue(String jsonFileObj, String jsonKey) {
-	try {
+		try {
 
-	 // JSON Data
-	InputStream inputStream = new FileInputStream(GlobalVariables.PATH_JSON_DATA + jsonFileObj + ".json");
-	JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
+			// JSON Data
+			InputStream inputStream = new FileInputStream(GlobalVariables.PATH_JSON_DATA + jsonFileObj + ".json");
+			JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
 
-	 // Get Data
-	String jsonValue = (String) jsonObject.getJSONObject(jsonFileObj).get(jsonKey);
-	return jsonValue;
+			// Get Data
+			String jsonValue = (String) jsonObject.getJSONObject(jsonFileObj).get(jsonKey);
+			return jsonValue;
 
-	 } catch (FileNotFoundException e) {
-	Assert.fail("JSON file is not found");
-	return null;
+		} catch (FileNotFoundException e) {
+			Assert.fail("JSON file is not found");
+			return null;
+		}
 	}
-	}
-	
+
 	public String getJSONValue(String jsonKey) {
-	try {
+		try {
 
-	 // JSON Data
-	InputStream inputStream = new FileInputStream(GlobalVariables.PATH_JSON_DATA + "UserAndPassword.json");
-	JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
+			// JSON Data
+			InputStream inputStream = new FileInputStream(GlobalVariables.PATH_JSON_DATA + "UserAndPassword.json");
+			JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
 
-	 // Get Data
-	String jsonValue = (String) jsonObject.getJSONObject("UserAndPassword").get(jsonKey);
-	return jsonValue;
+			// Get Data
+			String jsonValue = (String) jsonObject.getJSONObject("UserAndPassword").get(jsonKey);
+			return jsonValue;
 
-	 } catch (FileNotFoundException e) {
-	Assert.fail("JSON file is not found");
-	return null;
+		} catch (FileNotFoundException e) {
+			Assert.fail("JSON file is not found");
+			return null;
+		}
 	}
-	}
+
 	/*
-	* Get Value from Excel
-	* @author Ricardo Avalos
-	* @date 02/18/2019
-	*/
+	 * Get Value from Excel
+	 * 
+	 * @author Ricardo Avalos
+	 * 
+	 * @date 02/18/2019
+	 */
 	public String getCellData(String excelName, int row, int column) {
-	try {
-	// Reading Data
-	FileInputStream fis = new FileInputStream(GlobalVariables.PATH_EXCEL_DATA+excelName+".xlsx");
-	// Constructs an XSSFWorkbook object
-	@SuppressWarnings("resource")
-	Workbook wb = new XSSFWorkbook(fis);
-	Sheet sheet = wb.getSheetAt(0);
-	Row rowObj = sheet.getRow(row);
-	Cell cell = rowObj.getCell(column);
-	String value = cell.getStringCellValue();
-	return value;
-	} catch (FileNotFoundException e) {
-	e.printStackTrace();
-	return null;
-	} catch (IOException e1) {
-	e1.printStackTrace();
-	return null;
-	}
-	}
-	/*
-	* Take screenshot
-	*
-	* @author Ricardo Avalos
-	* @throws IOException
-	*/
-	public String takeScreenshot(String fileName){
-	try {
-	String pathFileName= GlobalVariables.PATH_SCREENSHOTS + fileName + ".png";
-	Screenshot screenshot = new AShot().takeScreenshot(driver);
-	ImageIO.write(screenshot.getImage(), "PNG", new File(pathFileName));
-	return pathFileName;
-	} catch (Exception e) {
-	System.out.println(e.getMessage());
-	return null;
-	}
-	}
-	
-	public String takeScreenshot(String fileName, String path){
-	try {
-	String pathFileName= path + "/" +  fileName + ".png";
-	Screenshot screenshot = new AShot().takeScreenshot(driver);
-	ImageIO.write(screenshot.getImage(), "PNG", new File(pathFileName));
-	return pathFileName;
-	} catch (Exception e) {
-	System.out.println(e.getMessage());
-	return null;
+		try {
+			// Reading Data
+			FileInputStream fis = new FileInputStream(GlobalVariables.PATH_EXCEL_DATA + excelName + ".xlsx");
+			// Constructs an XSSFWorkbook object
+			@SuppressWarnings("resource")
+			Workbook wb = new XSSFWorkbook(fis);
+			Sheet sheet = wb.getSheetAt(0);
+			Row rowObj = sheet.getRow(row);
+			Cell cell = rowObj.getCell(column);
+			String value = cell.getStringCellValue();
+			return value;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return null;
+		}
 	}
 
-	 }
-	
-	//Para la actividad de screenshots - generar folders
+	/*
+	 * Take screenshot
+	 *
+	 * @author Ricardo Avalos
+	 * 
+	 * @throws IOException
+	 */
+	public String takeScreenshot(String fileName) {
+		try {
+			String pathFileName = GlobalVariables.PATH_SCREENSHOTS + fileName + ".png";
+			Screenshot screenshot = new AShot().takeScreenshot(driver);
+			ImageIO.write(screenshot.getImage(), "PNG", new File(pathFileName));
+			return pathFileName;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	public String takeScreenshot(String fileName, String path) {
+		try {
+			String pathFileName = path + "/" + fileName + ".png";
+			Screenshot screenshot = new AShot().takeScreenshot(driver);
+			ImageIO.write(screenshot.getImage(), "PNG", new File(pathFileName));
+			return pathFileName;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+	}
+
+	// Para la actividad de screenshots - generar folders
 //	public void generaFolders() {
 //	//File theDir = new File("/path/directory");
 //		File theDir = new File("/path/directory");
 //	if (!theDir.exists()){
 //		theDir.mkdirs();}
 //	}
-	
+
 	public String generaFolders(String folderName) {
-		//File theDir = new File("/path/directory");
-			File theDir = new File(GlobalVariables.PATH_SCREENSHOTS + folderName);
-		if (!theDir.exists()){
-			theDir.mkdirs();}
-		 String newFolderPath = GlobalVariables.PATH_SCREENSHOTS + folderName;
-		 return newFolderPath;
-		
+		// File theDir = new File("/path/directory");
+		File theDir = new File(GlobalVariables.PATH_SCREENSHOTS + folderName);
+		if (!theDir.exists()) {
+			theDir.mkdirs();
 		}
+		String newFolderPath = GlobalVariables.PATH_SCREENSHOTS + folderName;
+		return newFolderPath;
+
+	}
 
 }

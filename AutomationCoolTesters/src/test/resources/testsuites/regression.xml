@@ -16,9 +16,9 @@
 			<class name="com.opensource.admin.qa.TC003_Admin_AddNewUser_POM" />
 		</classes>
 	</test> <!-- Test -->
-	<test name="TC004_Admin_AddNewUser_POM">
+	<test name="TC004_Admin_DeleteUser">
 		<classes>
-			<class name="com.opensource.admin.qa.TC003_Admin_AddNewUser_POM" />
+			<class name="com.opensource.admin.qa.TC004_Admin_DeleteUser" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

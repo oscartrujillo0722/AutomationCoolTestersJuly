@@ -25,12 +25,20 @@ public class AdminPage  extends Base{
 	By txtAddPassword = By.xpath("//input[@name='systemUser[password]']");
 	By txtConfirmPassword = By.xpath("//input[@name='systemUser[confirmPassword]']");
 	By btnSave = By.xpath("//input[@name='btnSave']");
-	
+	By cbSelectUser = By.xpath("//input[@name = 'chkSelectRow[]']");
+	By btnDelete = By.xpath("//input[@name = 'btnDelete']");
+	By lblPopWindowDeleteRecords = By.xpath("//div[@id = 'deleteConfModal']");
+	By btnOkDelete = By.xpath("//input[@id='dialogDeleteBtn']");
 	
 	public void validatelogged(String newFolderPath) {
 	reporter("Validate Logged Successfully");
 	waitforElementPresent(imgHeaderOrange);
 	takeScreenshot("Validate_Login", newFolderPath);
+	}
+	public void validatelogged() {
+		reporter("Validate Logged Successfully");
+		waitforElementPresent(imgHeaderOrange);
+		
 	}
 	public void clickAdmin(String newFolderPath) {
 		reporter("Click Admin Module");
@@ -38,12 +46,25 @@ public class AdminPage  extends Base{
 		implicitlywait();
 		takeScreenshot("Click_Admin", newFolderPath);
 	}
+	public void clickAdmin() {
+		reporter("Click Admin Module");
+		click(lnkAdmin);
+		implicitlywait();
+		
+	}
 	public void searchUser(String username, String newFolderPath) {
 		reporter("Searching..."+username);
 		type(txtSearchUserName, username);
 		click(btnSearch);
 		implicitlywait();
 		takeScreenshot("Search_User", newFolderPath);
+		
+	}
+	public void searchUser(String username) {
+		reporter("Searching..."+username);
+		type(txtSearchUserName, username);
+		click(btnSearch);
+		implicitlywait();
 		
 	}
 	public void validateUsernameTable(String username, String newFolderPath) {
@@ -65,10 +86,22 @@ public class AdminPage  extends Base{
 		
 		
 	}
+	public void clickAdd(){
+		reporter("click Add button");
+		click(btnAdd);
+		
+		
+		
+	}
 	public void typeEmplyeeName(String employeeName, String newFolderPath) {
 		reporter("Input a valid employee name");
 		type(txtEmployeeName, employeeName);
 		takeScreenshot("Type_Employee", newFolderPath);
+	}
+	public void typeEmplyeeName(String employeeName) {
+		reporter("Input a valid employee name");
+		type(txtEmployeeName, employeeName);
+		
 	}
 	
 	public String selectValidUserName() {
@@ -83,17 +116,37 @@ public class AdminPage  extends Base{
 		takeScreenshot("Type_UserName", newFolderPath);
 		
 	}
+	public void typeValidUserName(String newUserName) {
+		reporter ("entering the new User Name");
+		type(txtUserName,newUserName);
+		
+		
+	}
 	public void selectAndConfirmPassword(String password, String newFolderPath) {
 		reporter("Select, type and confirm password");
 		type(txtAddPassword,password);
 		type(txtConfirmPassword,password);
 		takeScreenshot("Type_And_Confirm_Password", newFolderPath);
+		
+	}
+	public void selectAndConfirmPassword(String password) {
+		reporter("Select, type and confirm password");
+		type(txtAddPassword,password);
+		type(txtConfirmPassword,password);
+		
 	}
 	public void clickSave(String newFolderPath) {
 		reporter("Click on save button");
 		click(btnSave);
 		takeScreenshot("Click Save", newFolderPath);
-	}public void getTableValue(){
+		
+	}
+	public void clickSave() {
+		reporter("Click on save button");
+		click(btnSave);
+		
+	}
+	public void getTableValue(){
 		reporter("get a random table value");
 		String tableValueGotten = tablevalue();
 		System.out.println(tableValueGotten);
@@ -103,6 +156,28 @@ public class AdminPage  extends Base{
 		String newUserName = creatingValidUserName();
 		return newUserName;
 		
+	}
+	public void selectUser(String newFolderPath) {
+		reporter("Select User");
+		click(cbSelectUser);
+		takeScreenshot("Select_User", newFolderPath);
+		
+	}
+	public void clickDelete(String newFolderPath) {
+		reporter("Click Delete");
+		click(btnDelete);
+		takeScreenshot("click_Delete", newFolderPath);
+	}
+	public void validateDeleteRecordsPopWindow (String newFolderPath) {
+		reporter("validate pop window delete records? ");
+		isDisplayed(lblPopWindowDeleteRecords);
+		takeScreenshot("pop_window_Delete_records?", newFolderPath);
+		
+	}
+	public void clickOkDelete(String newFolderPath) {
+		reporter("click ok Delete Records");
+		click(btnOkDelete);
+		takeScreenshot("click_ok_Delete_records", newFolderPath);
 	}
 				
 		

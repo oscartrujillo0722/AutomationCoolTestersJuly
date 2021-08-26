@@ -8,45 +8,60 @@ import com.opensource.base.Base;
 public class LoginPage extends Base {
 
 	public LoginPage(WebDriver driver) {
-		super(driver);}
-		// TODO Auto-generated constructor stub
-		
-		//Objects
-		By txtUsername = By.xpath("//input[@id='txtUsername']");
-		By txtPassword = By.xpath("//input[@id='txtPassword']");
-		By btnLogin = By.xpath("//input[@id='btnLogin']");
-		By lnkWelcome = By.xpath("//a[@id='welcome']");
-		By lnkLogout = By.xpath("//a[contains(text(),'Logout')]");
-		
-		/*Login OrangeHRM
-		 * @author oscar.trujillo
-		 * @date 08142021
-		 */
-		public void LoginOrange(String username, String password, String newFolderPath) {
-			reporter("Enter Username and Password");
-			type(txtUsername,username);
-			type(txtPassword,password);
-			click(btnLogin);
-			implicitlywait(15);
-			takeScreenshot("Login_Ornage", newFolderPath);
-			
-		}
-		/*
-		 * Logout
-		 */
-		public void logout(String newFolderPath) {
-			reporter("Logout Orange HLM portal...");
-			click(lnkWelcome);
-			waitforElementPresent(lnkLogout);
-			click(lnkLogout);
-			takeScreenshot("Login out", newFolderPath);
-			
-		}
-			
-		
-		}
-	
-	
-	
+		super(driver);
+	}
+	// TODO Auto-generated constructor stub
 
+	// Objects
+	By txtUsername = By.xpath("//input[@id='txtUsername']");
+	By txtPassword = By.xpath("//input[@id='txtPassword']");
+	By btnLogin = By.xpath("//input[@id='btnLogin']");
+	By lnkWelcome = By.xpath("//a[@id='welcome']");
+	By lnkLogout = By.xpath("//a[contains(text(),'Logout')]");
 
+	/*
+	 * Login OrangeHRM
+	 * 
+	 * @author oscar.trujillo
+	 * 
+	 * @date 08142021
+	 */
+	public void LoginOrange(String username, String password, String newFolderPath) {
+		reporter("Enter Username and Password");
+		type(txtUsername, username);
+		type(txtPassword, password);
+		click(btnLogin);
+		implicitlywait(15);
+		takeScreenshot("Login_Ornage", newFolderPath);
+
+	}
+
+	public void LoginOrange(String username, String password) {
+		reporter("Enter Username and Password");
+		type(txtUsername, username);
+		type(txtPassword, password);
+		click(btnLogin);
+		implicitlywait(15);
+
+	}
+
+	/*
+	 * Logout
+	 */
+	public void logout(String newFolderPath) {
+		reporter("Logout Orange HLM portal...");
+		click(lnkWelcome);
+		waitforElementPresent(lnkLogout);
+		click(lnkLogout);
+		takeScreenshot("Login out", newFolderPath);
+
+	}
+
+	public void logout() {
+		reporter("Logout Orange HLM portal...");
+		click(lnkWelcome);
+		waitforElementPresent(lnkLogout);
+		click(lnkLogout);
+	}
+
+}
